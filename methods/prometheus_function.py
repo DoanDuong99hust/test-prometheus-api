@@ -1,6 +1,7 @@
 import requests
 import json
 from types import SimpleNamespace
+import time
 
 class PrometheusFunctions():
 	"""docstring for PrometheusFunctions"""
@@ -31,3 +32,17 @@ class PrometheusFunctions():
 		list_data = raw_data.data.result
 		for i in list_data:
 		    print(machine +" - "+ data_type + " : " + i.value[1])
+
+	def get_data_by_time(self, machine, data_type):
+		url = "http://"+machine+":5000/api/v1/resources/"+data_type
+		while 1:
+			response = requests.get(url)
+			data = response.text
+			parsed = json.loads(data)
+			raw_data = json.loads(parsed, object_hook=lambda d: SimpleNamespace(**d))
+
+			list_data = raw_data.data.result
+			for i in list_data:
+			    print(machine +" - "+ data_type + " : " + i.value[1])
+			time.sleep(1)
+			pass

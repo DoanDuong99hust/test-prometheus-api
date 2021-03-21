@@ -1,5 +1,6 @@
 import json
 from methods import PrometheusFunctions
+from types import SimpleNamespace
 
 with open("data/machine_information.json", "r") as json_file:
 	machine_information = json.load(json_file,object_hook=lambda d: SimpleNamespace(**d))
@@ -20,4 +21,4 @@ target_option = input("Insert target: ")
 
 machine = prometheus.select_machine(machine_option, machine_information)
 target_data = prometheus.data_target(target_option, data_type)
-prometheus.get_data(machine, target_data)
+prometheus.get_data_by_time(machine, target_data)
