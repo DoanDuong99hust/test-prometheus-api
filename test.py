@@ -1,6 +1,7 @@
 
 import json
-
+import socket
+print(socket.gethostname())
 # machine_information = {
 # 	"worker1": {"ip" : "192.168.100.94"}, 
 # 	"worker2": {"ip" : "192.168.100.94",}
@@ -14,5 +15,5 @@ data_type = {
 	},
 }
 
-with open('data_type.json', 'w') as json_file:
-  json.dump(data_type, json_file)
+# with open('data_type.json', 'w') as json_file:
+#   json.dump(data_type, json_file)

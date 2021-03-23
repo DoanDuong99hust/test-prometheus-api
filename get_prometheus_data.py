@@ -10,7 +10,7 @@ with open("data/data_type.json", "r") as json_file:
 
 prometheus = PrometheusFunctions()
 
-print("Machine:\n 1.worker1 \n 2.worker2")
+print("Machine: \n 0.local \n 1.worker1 \n 2.worker2")
 machine_option = input("Select machine: ")
 
 
@@ -21,4 +21,4 @@ target_option = input("Insert target: ")
 
 machine = prometheus.select_machine(machine_option, machine_information)
 target_data = prometheus.data_target(target_option, data_type)
-prometheus.get_data_by_time(machine, target_data)
+prometheus.get_data(machine, target_data)
