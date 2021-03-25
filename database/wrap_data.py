@@ -1,62 +1,79 @@
-from methods import PrometheusFunctions
-from methods import NodeExporterOverride
-import socket
-
-prometheus = PrometheusFunctions()
-node_exporter = NodeExporterOverride()
-
-hostname = socket.gethostname()
-ip_address = socket.gethostbyname()
-
-def get_worker(self, hostname):
-	worker_data = {
-		"name" : hostname,
-		"ip_address" : ip_address
-	}
-	return worker_data
-
-# get cpu data
-
-def get_cpu_data(self, hostname):
-    dict_data = node_exporter.node_exporter.node_cpu_rate(mode="idle")
-    data = prometheus.seperate_json_data(data)
-    cpu_dict_data = {
-        "machine_name": hostname,
-        "value": data
-    }
-    return cpu_dict_data
-
-# insert ram data
-# def get_memory_data(hostname):
-# 	dict_data = node_exporter.node_exporter.node_cpu_rate(mode="idle")
-#     data = prometheus.seperate_json_data(data)
-# 	memory_dict_data = {
-# 		"machine_name": hostname,
-# 		"value": data
-# 	}
-# 	return memory_dict_data
+from methods import PrometheusFunctions as prometheus
+from methods import NodeExporterOverride as node_exporter
+import socket as socket
 
 
-# insert receive-network
-def get_receive_net(self, hostname):
-    dict_data = node_exporter.node_exporter.node_network_receive_bytes(device="ens3")
-    data = prometheus.seperate_json_data(data)
-    receive_dict_data = {
-        "machine_name": hostname,
-        "value": data
-    }
-    return receive_dict_data
+class getServerStatus():
 
-# insert transmit-network
-def get_receive_net(self, hostname):
-    dict_data = node_exporter.node_exporter.node_network_transmit_bytes(device="ens3")
-    data = prometheus.seperate_json_data(data)
-    transmit_dict_data = {
-        "machine_name": hostname,
-        "value": data
-    }
-    return transmit_dict_data
+    @staticmethod
+    def get_worker():
+        worker_data = {
+            "name": socket.gethostname(),
+            "ip_address": socket.gethostbyname(socket.gethostname())
+        }
+        return worker_data
 
-# insert machine status
-def get_machine_status(self,hostname):
-	return "preparing"
+    # get cpu data
+
+    @staticmethod
+    def get_cpu_data():
+        data = prometheus.seperate_json_data(node_exporter.node_cpu_rate())
+        cpu_dict_data = {
+            "machine_name": socket.gethostname(),
+            "value": data
+        }
+        return cpu_dict_data
+
+    # insert ram data
+    @staticmethod
+    def get_memory_data():
+        data = prometheus.seperate_json_data(node_exporter.node_memory_usage())
+        memory_dic_data = {
+            "machine": socket.gethostname(),
+            "value": data
+        }
+        return memory_dic_data
+
+    # insert receive-network
+    @staticmethod
+    def get_receive_net():
+        data = prometheus.seperate_json_data(node_exporter.node_network_receive_bytes(device="ens3"))
+        receive_dict_data = {
+            "machine_name": socket.gethostname(),
+            "value": data
+        }
+        return receive_dict_data
+
+    # insert transmit-network
+    @staticmethod
+    def get_transmit_net():
+        data = prometheus.seperate_json_data(node_exporter.node_network_transmit_bytes(device="ens3"))
+        transmit_dict_data = {
+            "machine_name": socket.gethostname(),
+            "value": data
+        }
+        return transmit_dict_data
+
+    # insert machine status
+    @staticmethod
+    def get_machine_status():
+        # get cpu data
+        cpu_dict = prometheus.seperate_json_data(node_exporter.node_cpu_rate())
+
+        # get memory data
+        memory_dict = prometheus.seperate_json_data(node_exporter.node_memory_usage())
+
+        # get receive-net data
+        receive_dict = prometheus.seperate_json_data(node_exporter.node_network_receive_bytes())
+
+        # get transmit-net data
+        transmit_dict = prometheus.seperate_json_data(node_exporter.node_network_transmit_bytes())
+
+        status = {
+            "machine": socket.gethostname(),
+            "cpu": cpu_dict,
+            "memory": memory_dict,
+            "receive-net": receive_dict,
+            "transmit-net": transmit_dict
+        }
+        return status

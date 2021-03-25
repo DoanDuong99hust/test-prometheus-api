@@ -1,22 +1,6 @@
-import pymongo
-import json
-import socket
-# print(socket.gethostname())
-# machine_information = {
-# 	"worker1": {"ip" : "192.168.100.94"}, 
-# 	"worker2": {"ip" : "192.168.100.94",}
-# }
+from database import getServerStatus as status
+from methods import NodeExporterOverride as node_exporter
 
-data_type = {
-	"option":{
-		"cpu_uri": "node-cpu",
-		"network_recieve_uri":"network-receive",
-		"network_transmit_uri":"network-transmit",
-	},
-}
+print(node_exporter.node_cpu_rate())
+print(status.get_machine_status())
 
-# with open('data_type.json', 'w') as json_file:
-#   json.dump(data_type, json_file)
-
-myclient = pymongo.MongoClient("mongodb://192.168.100.137:27017/")
-print(myclient.list_database_names())
