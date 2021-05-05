@@ -33,5 +33,9 @@ def network_transmit_data():
     data = node_exporter.node_network_transmit_bytes(device="wlp2s0")
     return jsonify(data)
 
-
+@app.route('/api/v1/resources/cluster_node_list', methods=['GET'])
+def cluster_node_list():
+    data = node_exporter.get_cluster_node_list()
+    return jsonify(data)
+    
 app.run()

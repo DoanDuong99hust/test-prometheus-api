@@ -15,5 +15,7 @@ class NodeExporterOverride(NodeExporter):
     @relabel('irate(node_network_transmit_bytes{device="ens3"}[5m])/1024')
     def node_network_transmit_bytes(self, **kwargs):
         pass
-
+    @relabel('kubelet_node_name')
+    def get_cluster_node_list(self, **kwargs,):
+        pass
     

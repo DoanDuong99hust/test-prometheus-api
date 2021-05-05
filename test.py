@@ -1,11 +1,10 @@
 
 import json
 import socket
+from methods import PrometheusFunctions
+from types import SimpleNamespace
+import requests
 print(socket.gethostname())
-# machine_information = {
-# 	"worker1": {"ip" : "192.168.100.94"}, 
-# 	"worker2": {"ip" : "192.168.100.94",}
-# }
 
 data_type = {
 	"option":{
@@ -15,5 +14,14 @@ data_type = {
 	},
 }
 
-# with open('data_type.json', 'w') as json_file:
-#   json.dump(data_type, json_file)
+url = "http://127.0.0.1:5000/api/v1/resources/cluster_node_list"
+response = requests.get(url)
+data = response.text
+parsed = json.loads(data)
+raw_data = json.loads(parsed, object_hook=lambda d: SimpleNamespace(**d))
+
+print(parsed.data)
+for i in parsed:
+	# list_data = i.metric
+	# print(i)
+	pass
