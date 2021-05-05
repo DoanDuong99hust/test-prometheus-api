@@ -34,5 +34,5 @@ def network_transmit_data():
     data = node_exporter.node_network_transmit_bytes(device="wlp2s0")
     return jsonify(data)
 
-app.run(host="192.168.100.208")
+app.run(host="192.168.100.94")
 
