@@ -13,6 +13,6 @@ class PrometheusFunctions():
         dict_data = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
         list_data = dict_data.data.result
         for data in list_data:
+            data.value[1] = float(data.value[1])
+        for data in list_data:
             return data.value
-        
-

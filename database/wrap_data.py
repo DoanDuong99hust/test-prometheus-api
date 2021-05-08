@@ -17,7 +17,7 @@ class getServerStatus():
 
     @staticmethod
     def get_cpu_data():
-        data = prometheus.seperate_json_data(node_exporter.node_cpu_rate())
+        data = c
         cpu_dict_data = {
             "machine_name": socket.gethostname(),
             "value": data

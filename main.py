@@ -3,7 +3,7 @@ from time import sleep
 import pymongo
 from database import getServerStatus as status
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = pymongo.MongoClient("mongodb://192.168.100.137:27017/")
 mydb = myclient["test-prometheus"]
 
 # cpu
