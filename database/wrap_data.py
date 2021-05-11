@@ -69,11 +69,15 @@ class getServerStatus():
         # get transmit-net data
         transmit_dict = prometheus.seperate_json_data(node_exporter.node_network_transmit_bytes())
 
+        # get free disk size
+        free_disk = prometheus.seperate_json_data(node_exporter.node_filesystem_avail())
+        
         status = {
             "machine": socket.gethostname(),
             "cpu": cpu_dict,
             "memory": memory_dict,
             "receive-net": receive_dict,
-            "transmit-net": transmit_dict
+            "transmit-net": transmit_dict,
+            "free-disk": free_disk
         }
         return status

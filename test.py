@@ -7,10 +7,15 @@ from methods import PrometheusFunctions as prometheus
 # print(node_exporter.node_cpu_rate())
 # print(status.get_machine_status())
 
-data = node_exporter.node_cpu_rate()
-dict_data = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
-list_data = dict_data.data.result
-for data in list_data:
-	data.value[1] = float(data.value[1])
-for data in list_data:
-	print(data.value)
+# data = node_exporter.node_filesystem_avail()
+# dict_data = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
+# list_data = dict_data.data.result
+# for data in list_data:
+# 	data.value[1] = float(data.value[1])
+# for data in list_data:
+# 	print(data.value)
+
+
+data = prometheus.seperate_json_data(node_exporter.node_filesystem_avail())
+
+print(data)
