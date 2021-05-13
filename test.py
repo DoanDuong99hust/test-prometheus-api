@@ -16,6 +16,6 @@ from methods import PrometheusFunctions as prometheus
 # 	print(data.value)
 
 
-data = prometheus.seperate_json_data(node_exporter.node_filesystem_avail())
+data = prometheus.seperate_json_data(node_exporter.node_cpu_rate())
 
 print(data)

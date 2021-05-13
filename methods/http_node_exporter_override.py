@@ -22,6 +22,6 @@ class NodeExporterOverride(NodeExporter):
     def node_memory_usage(self):
         pass
 
-    @relabel('node_filesystem_avail{mountpoint="/",fstype="ext4"}')
+    @relabel('(node_filesystem_avail{mountpoint="/",fstype="ext4"})/1024')
     def node_filesystem_avail(self, **kwargs):
         pass
